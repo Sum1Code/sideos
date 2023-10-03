@@ -63,7 +63,7 @@ main:
 
     mov ax, 1       ; sectors start from 0, this means we are reading the second sector
     mov cl, 1       ; 1 sector to read
-    mov dl, 0
+    mov dl, 0       ; disk num
     mov bx, 0x7e00 
     call read_disk
 
@@ -206,5 +206,5 @@ times 510-($-$$) db 0
 ;
 ;   THE NEXT SECTOR OF THE DISK
 ;
-extrstr1 db 'WE READ A STRING !!!!'
- times 512 db 'YEAH!'
+
+ 
