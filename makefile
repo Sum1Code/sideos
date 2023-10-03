@@ -6,6 +6,9 @@ TRGT=$(BUILDDIR)/boot.img
 
 default:$(TRGT)
 
+run: $(TRGT)
+	qemu-system-i386 -fda $(TRGT)
+
 $(TRGT): $(BUILDDIR)/boot.bin
 	dd if=/dev/zero of=$(TRGT) bs=512 count=1880
 	dd if=$< of=$(TRGT) conv=notrunc
