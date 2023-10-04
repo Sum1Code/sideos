@@ -11,6 +11,8 @@ default:run
 run: $(TRGT)
 	qemu-system-i386 -fda $(TRGT)
 
+debug: $(TRGT)
+	bochs -f bohcsconf -q
 bootloader: STAGE1 STAGE2
 
 
