@@ -1,39 +1,36 @@
-ASM=fasm
+ASM=nasm
 
-STG1SRC=src/stage1
-STG2SRC=src/stage2
+BOOTLOADERSRC=src/bootloader
 BUILDDIR=build
 TRGT=$(BUILDDIR)/os.img
-STAGE1=$(BUILDDIR)/stage1.bin
-STAGE2=$(BUILDDIR)/stage2.bin
+BOOTLOADER=$(BUILDDIR)/bootloader.bin
+CFLAGS=-ffreestanding -m32 -g -c 
+export CFLAGS
+
+KERNELSRC=src/kernel
+KERNEL=$(BUILDDIR)/kernel.bin
+
 default:run
 
 run: $(TRGT)
-	qemu-system-i386 -fda $(TRGT)
+	qemu-system-i386 -fda $(TRGT) -m 128m
 
 debug: $(TRGT)
 	bochs -f bohcsconf -q
-bootloader: STAGE1 STAGE2
 
 
-STAGE2: $(STAGE2)
-$(STAGE2): $(STG2SRC)
-	$(MAKE) -C $(STG2SRC) BUILDDIR=$(abspath $(BUILDDIR))
+bootloader:  $(BOOTLOADERSRC) init
+	$(MAKE) -C $(BOOTLOADERSRC) BUILDDIR=$(abspath $(BUILDDIR))
 
-STAGE1: $(STAGE1) 
+kernel: $(KERNELSRC)
+	$(MAKE) -C $(KERNELSRC) BUILDDIR=$(abspath $(BUILDDIR)) 
 
-$(STAGE1): $(STG1SRC) init
-	$(MAKE) -C $(STG1SRC) BUILDDIR=$(abspath $(BUILDDIR))
-
-$(TRGT): bootloader
+$(TRGT): bootloader kernel
 	dd if=/dev/zero of=$(TRGT) bs=512 count=2880
 	mkfs.fat -F12 -n "RBOS" $(TRGT)
-#cat $(STAGE2) >> $(STAGE1)
-	dd if=$(STAGE1) of=$(TRGT) conv=notrunc
-	mcopy -i $(TRGT) $(STAGE2) "::stage2.bin"
+	cat $(KERNEL) $(BOOTLOADER) > $(BUILDDIR)/os.bin
+	dd if=$(BUILDDIR)/os.bin of=$(TRGT) conv=notrunc
 
-$(BUILDDIR)/boot.bin: $(SRCDIR)/boot.asm init 
-	$(ASM) $< $@
 
 init:
 	mkdir -p build
