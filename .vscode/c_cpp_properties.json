@@ -1,0 +1,47 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "/home/nocta/devel/sideos/**",
+                "/home/nocta/devel/sideos/src/kernel/headers"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "linux-clang-x64",
+            "compilerPathInCppPropertiesJson": "/home/nocta/Downloads/i386-elf-7.5.0-Linux-x86_64/bin/i386-elf-g++",
+            "mergeConfigurations": false,
+            "browse": {
+                "path": [
+                    "/home/nocta/devel/sideos/**",
+                    "/home/nocta/devel/sideos/src/kernel/headers",
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            }
+        },
+        {
+            "name": "osdev",
+            "includePath": [
+                "/home/nocta/devel/sideos/**"
+            ],
+            "defines": [],
+            "compilerPath": "/home/nocta/Downloads/i386-elf-7.5.0-Linux-x86_64/bin/i386-elf-gcc",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "linux-clang-x64",
+            "compilerPathInCppPropertiesJson": "/usr/bin/clang",
+            "mergeConfigurations": false,
+            "browse": {
+                "path": [
+                    "/home/nocta/devel/sideos/**",
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            }
+        }
+    ],
+    "version": 4
+}

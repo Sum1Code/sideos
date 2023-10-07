@@ -1,21 +1,28 @@
 BUILDDIR?=build/
 ASM?=nasm
 GCC?=i386-elf-g++
-CFLAGS?=-ffreestanding -m32 -g -c -nostdlib
+CFLAGS?=-ffreestanding -m32 -g -c -nostdlib -Iheaders
 LD?=i386-elf-ld
 
-
+SRCS=$(wildcard *.cpp)
+OBJS=$(patsubst %.cpp, $(BUILDDIR)/%.o, $(SRCS))
 .PHONY: all clean
 
 all: kernel
-kernel: build
-	
+
+kernel: $(BUILDDIR)/kernel.bin
+	$(LD) -m elf_i386 -o $@ -Ttext 0x1000 $(BUILDDIR)/kernel_entry.o $(OBJS) --oformat binary
 
 build: $(BUILDDIR)/kernel.bin
-$(BUILDDIR)/kernel.bin:
-	$(ASM) -felf kernel_entry.asm -o $(BUILDDIR)/kernel_entry.o
-	$(GCC) $(CFLAGS) kernel.cpp -o $(BUILDDIR)/kernel.o
-	$(LD) -m elf_i386 -o $(BUILDDIR)/kernel.bin -Ttext 0x1000 $(BUILDDIR)/kernel_entry.o $(BUILDDIR)/kernel.o --oformat binary
-#
+
+$(BUILDDIR)/kernel_entry.o: kernel_entry.asm
+	$(ASM) -f elf -o $@ $<
+
+$(BUILDDIR)/%.o: %.cpp
+	$(GCC) $(CFLAGS) $< -o $@
+
+$(BUILDDIR)/kernel.bin: $(BUILDDIR)/kernel_entry.o $(OBJS)
+	$(LD) -m elf_i386 -o $@ -Ttext 0x1000 $^ --oformat binary
+
 clean:
-	rm -f $(BUILD_DIR)/kernel.bin $(BUILD_DIR)/kernel.o $(BUILD_DIR)/kernel_entry.o
+	rm -f $(BUILDDIR)/kernel.bin $(OBJS) $(BUILDDIR)/kernel_entry.o

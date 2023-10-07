@@ -4,8 +4,8 @@ BOOTLOADERSRC=src/bootloader
 BUILDDIR=build
 TRGT=$(BUILDDIR)/os.img
 BOOTLOADER=$(BUILDDIR)/bootloader.bin
-CFLAGS=-ffreestanding -m32 -g -c 
-export CFLAGS
+#CFLAGS=-ffreestanding -m32 -g -c 
+#export CFLAGS
 
 KERNELSRC=src/kernel
 KERNEL=$(BUILDDIR)/kernel.bin
@@ -28,7 +28,7 @@ kernel: $(KERNELSRC)
 $(TRGT): bootloader kernel
 	dd if=/dev/zero of=$(TRGT) bs=512 count=2880
 	mkfs.fat -F12 -n "RBOS" $(TRGT)
-	cat $(KERNEL) $(BOOTLOADER) > $(BUILDDIR)/os.bin
+	cat "$(BOOTLOADER)" "$(KERNEL)" > $(BUILDDIR)/os.bin
 	dd if=$(BUILDDIR)/os.bin of=$(TRGT) conv=notrunc
 
 
