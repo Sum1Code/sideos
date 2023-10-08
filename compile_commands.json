@@ -1,0 +1,53 @@
+[
+ {
+  "directory": "/home/nocta/devel/raulos/src/kernel",
+  "arguments": [
+   "i386-elf-g++",
+   "-ffreestanding",
+   "-m32",
+   "-ggdb",
+   "-c",
+   "-nostdlib",
+   "-Iheaders",
+   "-Wno-narrowing",
+   "src/kernel.cpp",
+   "-o",
+   "/home/nocta/devel/raulos/build/kernel.o"
+  ],
+  "file": "src/kernel.cpp"
+ },
+ {
+  "directory": "/home/nocta/devel/raulos/src/kernel",
+  "arguments": [
+   "i386-elf-g++",
+   "-ffreestanding",
+   "-m32",
+   "-ggdb",
+   "-c",
+   "-nostdlib",
+   "-Iheaders",
+   "-Wno-narrowing",
+   "src/stdio.cpp",
+   "-o",
+   "/home/nocta/devel/raulos/build/stdio.o"
+  ],
+  "file": "src/stdio.cpp"
+ },
+ {
+  "directory": "/home/nocta/devel/raulos/src/kernel",
+  "arguments": [
+   "i386-elf-g++",
+   "-ffreestanding",
+   "-m32",
+   "-ggdb",
+   "-c",
+   "-nostdlib",
+   "-Iheaders",
+   "-Wno-narrowing",
+   "src/vga.cpp",
+   "-o",
+   "/home/nocta/devel/raulos/build/vga.o"
+  ],
+  "file": "src/vga.cpp"
+ }
+]

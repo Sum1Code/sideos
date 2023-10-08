@@ -2,7 +2,7 @@ ASM=nasm
 
 BOOTLOADERSRC=src/bootloader
 BUILDDIR=build
-TRGT=$(BUILDDIR)/os.img
+TRGT=target/os.img
 BOOTLOADER=$(BUILDDIR)/bootloader.bin
 #CFLAGS=-ffreestanding -m32 -g -c 
 #export CFLAGS
@@ -13,10 +13,10 @@ KERNEL=$(BUILDDIR)/kernel.bin
 default:run
 
 run: $(TRGT)
-	qemu-system-i386 -fda $(TRGT) -m 128m
+	qemu-system-i386 -fda $(TRGT) -m 128m  
 
 debug: $(TRGT)
-	bochs -f bohcsconf -q
+	qemu-system-i386 -fda $(TRGT) -m 5m -s -S 
 
 
 bootloader:  $(BOOTLOADERSRC) init
@@ -33,6 +33,6 @@ $(TRGT): bootloader kernel
 
 
 init:
-	mkdir -p build
+	mkdir -p build target
 clean:
-	rm -rf build
+	rm -rf build target

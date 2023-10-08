@@ -4,7 +4,8 @@
             "name": "Linux",
             "includePath": [
                 "/home/nocta/devel/sideos/**",
-                "/home/nocta/devel/sideos/src/kernel/headers"
+                "/home/nocta/devel/sideos/src/kernel/headers",
+                "${workspaceFolder}/src/kernel/headers"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",

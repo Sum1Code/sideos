@@ -19,6 +19,8 @@ Just another attempt at the hundreds of people trying to make their own OS
 ### KERNEL:
 - [ ] putc, puts implemention
 
-# REFRENCES
+# REFERENCES
 - [https://stanislavs.org/helppc]
 - [https://wiki.osdev.org/]
+- [https://os.phil-opp.com]
+- [https://github.com/nanobyte-dev/nanobyte_os.git]
